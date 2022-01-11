@@ -24,17 +24,17 @@
   <input type="radio" v-model="mode_size" value="big" />
 </label>
   
-  <div class="book_container {{mode_detail?'detail':''}}">
-    <div class="book  {{mode_detail?'detail':''}} {{mode_size}}" v-for="book in books" :key="book">
-      <img src="{{book.img}}">
+  <div class="book_container" :class="{ detail: mode_detail }">
+    <div class="book"  :class="`${mode_size} ${mode_detail ? 'detail' : ''}`" v-for="book in books" :key="book">
+      <img :src="book.img">
       <div class="info">
-        <h2 class="name" v-if="!mode_detail"><a href="{{book.link_book}}" target="_blank">{{book.name.substring(0,18)}}</a></h2>
-        <h2 class="name" v-if="mode_detail"><a href="{{book.link_book}}" target="_blank">{{book.name}}</a></h2>
-        <h4 class="author">作者：<a href="{{book.link_author}}" target="_blank">{{book.author}}</a></h4>
-        <h4 class="publish" v-if="mode_detail">出版社：<a href="{{book.publish_house}}" target="_blank">{{book.publish_house}}</a></h4>
+        <h2 class="name" v-if="!mode_detail"><a :href="book.link_book" target="_blank">{{book.name.substring(0,18)}}</a></h2>
+        <h2 class="name" v-if="mode_detail"><a :href="book.link_book" target="_blank">{{book.name}}</a></h2>
+        <h4 class="author">作者：<a :href="book.link_author" target="_blank">{{book.author}}</a></h4>
+        <h4 class="publish" v-if="mode_detail">出版社：<a :href="book.publish_house" target="_blank">{{book.publish_house}}</a></h4>
         <h4 class="price" v-if="book.is_discount">優惠價：<span class="red">{{book.discount*100}}</span>折<span class="red">{{parseInt(book.price*book.discount)}}</span>元</h4>
         <h4 class="price" v-if="!book.is_discount">原售價：<span class="red">{{book.price}}</span>元</h4>
-        <h4 class="date" v-if="mode_detail">出版日期：<a href="{{book.date}}" target="_blank">{{book.date}}</a></h4>
+        <h4 class="date" v-if="mode_detail">出版日期：<a :href="book.date" target="_blank">{{book.date}}</a></h4>
       </div>
     </div>    
   </div>
@@ -140,6 +140,106 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+* {
+  font-family: 微軟正黑體;
+}
 
+body {
+  padding: 20px; 
+}
+
+.bkl_icon {
+  width: 100px;
+}
+
+.book {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  width: 175px;
+  border: solid 1px;
+}
+img {
+    width: 100%;
+}
+  
+  
+
+  
+.author,.price,.publish,.date {
+  font-weight: nomal;
+  margin: 0px;
+  font-size: 14px;
+  color: #555;
+  }
+
+  .author {
+   margin-top: 5px;
+  }
+  
+  .name {
+   font-size: 18px;
+   margin: 0px;
+  }
+  a {
+  color: #555;
+  }
+  
+  .red {
+    color: #d93800;
+    font-weight: 900;
+  }
+
+.book_container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  
+  
+  &.detail {
+    display:flex;
+    flex-direction: column;
+  
+  .book {
+    &.detail{
+      width:80%;
+      display: flex;
+      flex-direction: row;
+      text-align: left;
+      padding: 20px;
+    }
+  
+    img {
+      width: 150px;
+    }
+    
+    &.big {
+      img {
+        width: 250px;
+        
+      .info {
+         width: calc(100% - 220px - 20px);  
+      }
+     }
+    }
+    .info {
+      width: calc(100% - 150px - 20px);
+      
+    }
+  }
+
+    
+  }
+}
+
+.big {
+  width:280px;
+  
+  img {
+    margin-top: 5px;
+  }
+}
 </style>
