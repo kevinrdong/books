@@ -6,22 +6,23 @@
     <span><img src="http://pk.ixpanel.com/images/pk/201108/0824/BOOKS.gif" class="bkl_icon"></span>  
     <a href="https://www.books.com.tw/web/sys_newtopb/books/01/?loc=P_0025_1_short_001" target="_blank">(連結網址)</a>
   <br>
-  <label>詳細模式<input type="checkbox" v-model="mode_detail"></label>
+  <label><input type="checkbox" v-model="mode_detail">詳細模式</label>
  </h3>
  <br>
-<label>優惠價</label>
-<span v-for="(id,book) in books" :key="book">
+ <label>優惠價</label>
+ <br>
+<span v-for="(book, id) in books" :key="book">
   <label>{{id+1}}</label>
   <input type="checkbox" v-model="book.is_discount"/>
 </span>
-
+<br>
 <label>
-  小呈現
   <input type="radio" v-model="mode_size" value="small" />
+  小呈現
 </label>
 <label>
-  大呈現
   <input type="radio" v-model="mode_size" value="big" />
+  大呈現
 </label>
   
   <div class="book_container" :class="{ detail: mode_detail }">
